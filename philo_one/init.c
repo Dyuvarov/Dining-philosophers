@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:03 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:45:07 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:31:48 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void		validate_args(t_args *args, int argc)
 {
-	if (args->number < 1 || args->die_time < 0 || args->eat_time < 0 \
+	if (args->number < 2 || args->die_time < 0 || args->eat_time < 0 \
 											|| args->sleep_time < 0)
 		ft_error(ARGS_ERR);
 	if (argc == 6 && args->eat_num < 0)
