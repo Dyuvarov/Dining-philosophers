@@ -143,6 +143,87 @@ philo_three/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/build
 .PHONY : philo_three/fast
 
+actions.o: actions.c.o
+
+.PHONY : actions.o
+
+# target to build an object file
+actions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/actions.c.o
+.PHONY : actions.c.o
+
+actions.i: actions.c.i
+
+.PHONY : actions.i
+
+# target to preprocess a source file
+actions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/actions.c.i
+.PHONY : actions.c.i
+
+actions.s: actions.c.s
+
+.PHONY : actions.s
+
+# target to generate assembly for a file
+actions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/actions.c.s
+.PHONY : actions.c.s
+
+error_handler.o: error_handler.c.o
+
+.PHONY : error_handler.o
+
+# target to build an object file
+error_handler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/error_handler.c.o
+.PHONY : error_handler.c.o
+
+error_handler.i: error_handler.c.i
+
+.PHONY : error_handler.i
+
+# target to preprocess a source file
+error_handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/error_handler.c.i
+.PHONY : error_handler.c.i
+
+error_handler.s: error_handler.c.s
+
+.PHONY : error_handler.s
+
+# target to generate assembly for a file
+error_handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/error_handler.c.s
+.PHONY : error_handler.c.s
+
+init.o: init.c.o
+
+.PHONY : init.o
+
+# target to build an object file
+init.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/init.c.o
+.PHONY : init.c.o
+
+init.i: init.c.i
+
+.PHONY : init.i
+
+# target to preprocess a source file
+init.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/init.c.i
+.PHONY : init.c.i
+
+init.s: init.c.s
+
+.PHONY : init.s
+
+# target to generate assembly for a file
+init.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/init.c.s
+.PHONY : init.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -170,6 +251,60 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/main.c.s
 .PHONY : main.c.s
 
+sem_utils.o: sem_utils.c.o
+
+.PHONY : sem_utils.o
+
+# target to build an object file
+sem_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/sem_utils.c.o
+.PHONY : sem_utils.c.o
+
+sem_utils.i: sem_utils.c.i
+
+.PHONY : sem_utils.i
+
+# target to preprocess a source file
+sem_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/sem_utils.c.i
+.PHONY : sem_utils.c.i
+
+sem_utils.s: sem_utils.c.s
+
+.PHONY : sem_utils.s
+
+# target to generate assembly for a file
+sem_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/sem_utils.c.s
+.PHONY : sem_utils.c.s
+
+utils.o: utils.c.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/utils.c.o
+.PHONY : utils.c.o
+
+utils.i: utils.c.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/utils.c.i
+.PHONY : utils.c.i
+
+utils.s: utils.c.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/utils.c.s
+.PHONY : utils.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -179,9 +314,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... philo_three"
+	@echo "... actions.o"
+	@echo "... actions.i"
+	@echo "... actions.s"
+	@echo "... error_handler.o"
+	@echo "... error_handler.i"
+	@echo "... error_handler.s"
+	@echo "... init.o"
+	@echo "... init.i"
+	@echo "... init.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... sem_utils.o"
+	@echo "... sem_utils.i"
+	@echo "... sem_utils.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 

@@ -97,5 +97,5 @@ int main(int argc, char **argv) {
 	pthread_join(meal_ctrl_thread, NULL);
 	pthread_detach(meal_ctrl_thread);
 	wait_threads_finish(head_philo);
-	return 0;
+	return (0);
 }

@@ -4,7 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/Users/ugreyiro/Cproj/philo/philo_three/actions.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/actions.c.o"
+  "/Users/ugreyiro/Cproj/philo/philo_three/error_handler.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/error_handler.c.o"
+  "/Users/ugreyiro/Cproj/philo/philo_three/init.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/init.c.o"
   "/Users/ugreyiro/Cproj/philo/philo_three/main.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/main.c.o"
+  "/Users/ugreyiro/Cproj/philo/philo_three/sem_utils.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/sem_utils.c.o"
+  "/Users/ugreyiro/Cproj/philo/philo_three/utils.c" "/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles/philo_three.dir/utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

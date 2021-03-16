@@ -90,17 +90,92 @@ CMakeFiles/philo_three.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/main.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/main.c -o CMakeFiles/philo_three.dir/main.c.s
 
+CMakeFiles/philo_three.dir/init.c.o: CMakeFiles/philo_three.dir/flags.make
+CMakeFiles/philo_three.dir/init.c.o: ../init.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/philo_three.dir/init.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_three.dir/init.c.o   -c /Users/ugreyiro/Cproj/philo/philo_three/init.c
+
+CMakeFiles/philo_three.dir/init.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_three.dir/init.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ugreyiro/Cproj/philo/philo_three/init.c > CMakeFiles/philo_three.dir/init.c.i
+
+CMakeFiles/philo_three.dir/init.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/init.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/init.c -o CMakeFiles/philo_three.dir/init.c.s
+
+CMakeFiles/philo_three.dir/error_handler.c.o: CMakeFiles/philo_three.dir/flags.make
+CMakeFiles/philo_three.dir/error_handler.c.o: ../error_handler.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/philo_three.dir/error_handler.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_three.dir/error_handler.c.o   -c /Users/ugreyiro/Cproj/philo/philo_three/error_handler.c
+
+CMakeFiles/philo_three.dir/error_handler.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_three.dir/error_handler.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ugreyiro/Cproj/philo/philo_three/error_handler.c > CMakeFiles/philo_three.dir/error_handler.c.i
+
+CMakeFiles/philo_three.dir/error_handler.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/error_handler.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/error_handler.c -o CMakeFiles/philo_three.dir/error_handler.c.s
+
+CMakeFiles/philo_three.dir/sem_utils.c.o: CMakeFiles/philo_three.dir/flags.make
+CMakeFiles/philo_three.dir/sem_utils.c.o: ../sem_utils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/philo_three.dir/sem_utils.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_three.dir/sem_utils.c.o   -c /Users/ugreyiro/Cproj/philo/philo_three/sem_utils.c
+
+CMakeFiles/philo_three.dir/sem_utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_three.dir/sem_utils.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ugreyiro/Cproj/philo/philo_three/sem_utils.c > CMakeFiles/philo_three.dir/sem_utils.c.i
+
+CMakeFiles/philo_three.dir/sem_utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/sem_utils.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/sem_utils.c -o CMakeFiles/philo_three.dir/sem_utils.c.s
+
+CMakeFiles/philo_three.dir/actions.c.o: CMakeFiles/philo_three.dir/flags.make
+CMakeFiles/philo_three.dir/actions.c.o: ../actions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/philo_three.dir/actions.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_three.dir/actions.c.o   -c /Users/ugreyiro/Cproj/philo/philo_three/actions.c
+
+CMakeFiles/philo_three.dir/actions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_three.dir/actions.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ugreyiro/Cproj/philo/philo_three/actions.c > CMakeFiles/philo_three.dir/actions.c.i
+
+CMakeFiles/philo_three.dir/actions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/actions.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/actions.c -o CMakeFiles/philo_three.dir/actions.c.s
+
+CMakeFiles/philo_three.dir/utils.c.o: CMakeFiles/philo_three.dir/flags.make
+CMakeFiles/philo_three.dir/utils.c.o: ../utils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/philo_three.dir/utils.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_three.dir/utils.c.o   -c /Users/ugreyiro/Cproj/philo/philo_three/utils.c
+
+CMakeFiles/philo_three.dir/utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_three.dir/utils.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ugreyiro/Cproj/philo/philo_three/utils.c > CMakeFiles/philo_three.dir/utils.c.i
+
+CMakeFiles/philo_three.dir/utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_three.dir/utils.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ugreyiro/Cproj/philo/philo_three/utils.c -o CMakeFiles/philo_three.dir/utils.c.s
+
 # Object files for target philo_three
 philo_three_OBJECTS = \
-"CMakeFiles/philo_three.dir/main.c.o"
+"CMakeFiles/philo_three.dir/main.c.o" \
+"CMakeFiles/philo_three.dir/init.c.o" \
+"CMakeFiles/philo_three.dir/error_handler.c.o" \
+"CMakeFiles/philo_three.dir/sem_utils.c.o" \
+"CMakeFiles/philo_three.dir/actions.c.o" \
+"CMakeFiles/philo_three.dir/utils.c.o"
 
 # External object files for target philo_three
 philo_three_EXTERNAL_OBJECTS =
 
 philo_three: CMakeFiles/philo_three.dir/main.c.o
+philo_three: CMakeFiles/philo_three.dir/init.c.o
+philo_three: CMakeFiles/philo_three.dir/error_handler.c.o
+philo_three: CMakeFiles/philo_three.dir/sem_utils.c.o
+philo_three: CMakeFiles/philo_three.dir/actions.c.o
+philo_three: CMakeFiles/philo_three.dir/utils.c.o
 philo_three: CMakeFiles/philo_three.dir/build.make
 philo_three: CMakeFiles/philo_three.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable philo_three"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ugreyiro/Cproj/philo/philo_three/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable philo_three"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/philo_three.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
