@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/16 15:07:23 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:43:51 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define UNTITLED_PHILO_H
 
 # include <pthread.h>
+# include <semaphore.h>
 
 # define ARGS_ERR		100
 # define SYSCALL_ERR	101
 
-pthread_mutex_t	g_output;
+sem_t	*g_forks;
+sem_t	*g_output;
 
 typedef struct	s_args
 {
@@ -29,20 +31,11 @@ typedef struct	s_args
 	int eat_num;
 }				t_args;
 
-typedef struct	s_fork
-{
-	int				num;
-	pthread_mutex_t	mtx;
-	int				enable;
-}				t_fork;
-
 typedef struct	s_philo
 {
 	int					number;
 	long				last_meal;
 	pthread_t			*thread;
-	t_fork				*left_fork;
-	t_fork				*right_fork;
 	struct s_args		*args;
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
@@ -63,4 +56,7 @@ long			get_time();
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
+void 			init_sems(int philo_num);
+void			unlink_sems(void);
+void			show_msg(const char * str, long time, int philo_number);
 #endif

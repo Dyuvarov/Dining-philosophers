@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:03 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 15:31:48 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:09:26 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_philo			*create_philos(char **argv, int argc)
 	head = new_philo(0, args, forks);
 	tmp = head;
 	i = 1;
+	pthread_mutex_init(&g_output, NULL);
 	while (i < args->number)
 	{
 		tmp->left_philo = new_philo(i, args, forks);
