@@ -1,5 +1,6 @@
 #include "philo.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void 	show_msg(const char *str, long time, int philo_number)
 {
@@ -28,10 +29,19 @@ void	init_sems(int philo_num)
 	}
 }
 
-void	unlink_sems(void)
+void	unlink_sems(t_philo **philo_arr)
 {
+	int i;
+
 	sem_unlink("forks");
 	sem_unlink("output");
 	sem_unlink("finish");
+	i = 0;
+	while (philo_arr[i])
+	{
+		sem_unlink(philo_arr[i]->sem_name);
+		free(philo_arr[i]->sem_name);
+		++i;
+	}
 }
 

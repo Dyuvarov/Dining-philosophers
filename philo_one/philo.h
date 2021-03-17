@@ -55,6 +55,12 @@ typedef struct	s_controller
 	int		meals;
 }				t_controller;
 
+typedef struct	s_queue
+{
+	t_philo			*philo;
+	struct s_queue	*next;
+}				t_queue;
+
 int				ft_atoi(const char *str);
 int				ft_strlen(const char *str);
 void			ft_error(int code);

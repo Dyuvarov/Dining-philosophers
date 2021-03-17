@@ -9,7 +9,6 @@
 /*   Updated: 2021/03/14 14:51:34 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +18,7 @@ void	philo_death(t_philo *philo)
 {
 	show_msg("%ld: philo #%d died\n", get_time(), philo->number);
 	sem_post(g_finish);
+	exit (0);
 }
 
 void	*philo_sleep_n_think(void *args)
@@ -51,6 +51,5 @@ void	eat(t_philo **ph)
 	show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
 	usleep(philo->args->eat_time * 1000);
 	sem_post(g_forks);
-	philo->cntrl->meals++;
-	philo_sleep_n_think(philo);
+	philo->meals++;
 }

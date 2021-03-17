@@ -251,6 +251,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/main.c.s
 .PHONY : main.c.s
 
+monitoring.o: monitoring.c.o
+
+.PHONY : monitoring.o
+
+# target to build an object file
+monitoring.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/monitoring.c.o
+.PHONY : monitoring.c.o
+
+monitoring.i: monitoring.c.i
+
+.PHONY : monitoring.i
+
+# target to preprocess a source file
+monitoring.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/monitoring.c.i
+.PHONY : monitoring.c.i
+
+monitoring.s: monitoring.c.s
+
+.PHONY : monitoring.s
+
+# target to generate assembly for a file
+monitoring.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/monitoring.c.s
+.PHONY : monitoring.c.s
+
 sem_utils.o: sem_utils.c.o
 
 .PHONY : sem_utils.o
@@ -277,6 +304,33 @@ sem_utils.s: sem_utils.c.s
 sem_utils.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/sem_utils.c.s
 .PHONY : sem_utils.c.s
+
+str_utils.o: str_utils.c.o
+
+.PHONY : str_utils.o
+
+# target to build an object file
+str_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/str_utils.c.o
+.PHONY : str_utils.c.o
+
+str_utils.i: str_utils.c.i
+
+.PHONY : str_utils.i
+
+# target to preprocess a source file
+str_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/str_utils.c.i
+.PHONY : str_utils.c.i
+
+str_utils.s: str_utils.c.s
+
+.PHONY : str_utils.s
+
+# target to generate assembly for a file
+str_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_three.dir/build.make CMakeFiles/philo_three.dir/str_utils.c.s
+.PHONY : str_utils.c.s
 
 utils.o: utils.c.o
 
@@ -326,9 +380,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... monitoring.o"
+	@echo "... monitoring.i"
+	@echo "... monitoring.s"
 	@echo "... sem_utils.o"
 	@echo "... sem_utils.i"
 	@echo "... sem_utils.s"
+	@echo "... str_utils.o"
+	@echo "... str_utils.i"
+	@echo "... str_utils.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

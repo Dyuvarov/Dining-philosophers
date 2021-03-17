@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:03 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/16 15:09:26 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:35:38 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static t_philo	*new_philo(int id, t_args *args, t_fork *forks)
 	if (!philo->thread)
 		ft_error(SYSCALL_ERR);
 	philo->args = args;
+	philo->last_meal = get_time();
 	return (philo);
 }
 

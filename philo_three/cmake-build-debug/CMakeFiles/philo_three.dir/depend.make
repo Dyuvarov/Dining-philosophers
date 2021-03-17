@@ -13,8 +13,14 @@ CMakeFiles/philo_three.dir/init.c.o: ../philo.h
 CMakeFiles/philo_three.dir/main.c.o: ../main.c
 CMakeFiles/philo_three.dir/main.c.o: ../philo.h
 
+CMakeFiles/philo_three.dir/monitoring.c.o: ../monitoring.c
+CMakeFiles/philo_three.dir/monitoring.c.o: ../philo.h
+
 CMakeFiles/philo_three.dir/sem_utils.c.o: ../philo.h
 CMakeFiles/philo_three.dir/sem_utils.c.o: ../sem_utils.c
+
+CMakeFiles/philo_three.dir/str_utils.c.o: ../philo.h
+CMakeFiles/philo_three.dir/str_utils.c.o: ../str_utils.c
 
 CMakeFiles/philo_three.dir/utils.c.o: ../philo.h
 CMakeFiles/philo_three.dir/utils.c.o: ../utils.c

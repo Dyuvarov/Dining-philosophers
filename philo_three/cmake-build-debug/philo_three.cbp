@@ -90,10 +90,16 @@
 		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/main.c">
 			<Option target="philo_three"/>
 		</Unit>
+		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/monitoring.c">
+			<Option target="philo_three"/>
+		</Unit>
 		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/philo.h">
 			<Option target="philo_three"/>
 		</Unit>
 		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/sem_utils.c">
+			<Option target="philo_three"/>
+		</Unit>
+		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/str_utils.c">
 			<Option target="philo_three"/>
 		</Unit>
 		<Unit filename="/Users/ugreyiro/Cproj/philo/philo_three/utils.c">

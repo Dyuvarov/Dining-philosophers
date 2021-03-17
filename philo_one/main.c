@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:09 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:50:54 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:39:05 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ static void			*philo_start(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	philo->last_meal = get_time();
 	while (1)
 	{
 		if (philo->left_fork->enable && philo->right_fork->enable)
 			eat(&philo);
-		else if ((get_time() - philo->last_meal) > philo->args->die_time)
-			philo_death(philo);
 	}
 }
 
@@ -66,13 +63,18 @@ static void			*meals_controll(void *args)
 		flag = 1;
 		while (ctrl[i].philo)
 		{
-			if (ctrl[i].meals < ctrl[i].philo->args->eat_num)
+			if ((get_time() - ctrl[i].philo->last_meal) > ctrl[i].philo->args->die_time)
+				philo_death(ctrl[i].philo);
+			if (ctrl[i].philo->args->eat_num >= 0 && (ctrl[i].meals < ctrl[i].philo->args->eat_num))
 				flag = 0;
 			++i;
 		}
-		if (flag)
+		if (flag && ctrl[i-1].philo->args->eat_num >= 0)
 			break ;
 	}
+	pthread_mutex_lock(&g_output);
+	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n", ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
+	pthread_mutex_unlock(&g_output);
 	exit(0);
 }
 
@@ -98,24 +100,23 @@ int					main(int argc, char **argv)
 	t_philo			*philo;
 	pthread_t		meal_ctrl_thread;
 	t_controller	*meal_control;
+	t_queue 		*queue;
 	int				i;
 
 	head_philo = create_philos(argv, argc);
 	meal_control = create_meal_control(&head_philo);
 	philo = head_philo;
 	i = 0;
+	//philo_start(head_philo);
 	while (i < head_philo->args->number)
 	{
 		pthread_create(philo->thread, NULL, philo_start, philo);
 		philo = philo->left_philo;
 		++i;
 	}
-	if (head_philo->args->eat_num >= 0)
-	{
-		pthread_create(&meal_ctrl_thread, NULL, meals_controll, meal_control);
-		pthread_join(meal_ctrl_thread, NULL);
-		pthread_detach(meal_ctrl_thread);
-	}
+	pthread_create(&meal_ctrl_thread, NULL, meals_controll, meal_control);
+	pthread_join(meal_ctrl_thread, NULL);
+	pthread_detach(meal_ctrl_thread);
 	wait_threads_finish(head_philo);
 	return (0);
 }

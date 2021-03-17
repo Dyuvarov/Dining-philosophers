@@ -4,28 +4,19 @@
 #include <signal.h>
 #include <pthread.h>
 
-void	*controll(void *args)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)args;
-	while(1)
-	{
-		if ((get_time() - philo->last_meal) > philo->args->die_time)
-			philo_death(philo);
-	}
-	return (NULL);
-}
-
 static void			*philo_start(void *args)
 {
 	t_philo			*philo;
 	pthread_t		meal_ctrl_thread;
 
 	philo = (t_philo *)args;
-	pthread_create(&meal_ctrl_thread, NULL, controll, args);
+	pthread_create(&meal_ctrl_thread, NULL, philo_controll, args);
 	while (1)
+	{
 		eat(&philo);
+		philo_sleep_n_think(philo);
+	}
+	pthread_detach(meal_ctrl_thread);
 }
 
 void	create_procceses(t_philo **arr)
@@ -71,21 +62,28 @@ t_philo	**get_philo_arr(t_philo *head_philo)
 int		main(int argc, char **argv, char **env)
 {
 	t_philo			*head_philo;
-	t_controller	*controller;
 	t_philo			**philo_arr;
+	pthread_t		meal_count_controller;
 	int				i;
 
 	head_philo = create_philos(argv, argc);
 	philo_arr = get_philo_arr(head_philo);
 	init_sems(head_philo->args->number);
+	pthread_create(&meal_count_controller, NULL, meal_count_controll, head_philo);
 	create_procceses(philo_arr);
 	sem_wait(g_finish);
+	sem_wait(g_output);
 	i = 0;
-	while (controller[i].philo)
+	while (philo_arr[i])
 	{
-		kill(controller[i].philo->pid, SIGQUIT);
+		kill(philo_arr[i]->pid, SIGQUIT);
 		++i;
 	}
-	unlink_sems();
+	pthread_detach(meal_count_controller);
+	unlink_sems(philo_arr);
+	while(1)
+	{
+		int q=1;
+	}
 	return (0);
 }

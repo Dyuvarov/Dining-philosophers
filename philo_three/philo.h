@@ -36,21 +36,20 @@ typedef struct	s_philo
 {
 	int					number;
 	int 				pid;
+	int 				meals;
 	long				last_meal;
 	struct s_args		*args;
-	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
+	char 				*sem_name;
+	sem_t				*meal_sem;
 }				t_philo;
 
-typedef struct	s_controller
-{
-	t_philo	*philo;
-	int		meals;
-}				t_controller;
 
 int				ft_atoi(const char *str);
+char			*ft_itoa(int n);
 int				ft_strlen(const char *str);
+char			*ft_strjoin(char const *s1, char const *s2);
 void			ft_error(int code);
 t_philo			*create_philos(char	**argv, int argc);
 long			get_time();
@@ -58,6 +57,8 @@ void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
 void 			init_sems(int philo_num);
-void			unlink_sems(void);
+void			unlink_sems(t_philo **philo_arr);
 void			show_msg(const char * str, long time, int philo_number);
+void			*philo_controll(void *args);
+void 			*meal_count_controll(void *args);
 #endif

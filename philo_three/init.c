@@ -13,12 +13,18 @@ static void		validate_args(t_args *args, int argc)
 static t_philo	*new_philo(int id, t_args *args)
 {
 	t_philo	*philo;
+	char 	*str_num;
 
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
 		ft_error(SYSCALL_ERR);
 	philo->number = id + 1;
 	philo->args = args;
+	philo->meals = 0;
+	str_num = ft_itoa(philo->number);
+	philo->sem_name = ft_strjoin("philo",str_num);
+	free(str_num);
+	philo->meal_sem = sem_open(philo->sem_name, O_CREAT, 0666, 0);
 	return (philo);
 }
 
