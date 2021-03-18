@@ -48,22 +48,28 @@ void	eat(t_philo **ph)
 	long	cur_time;
 
 	philo = *ph;
-	philo->left_fork->enable = 0;
-	philo->right_fork->enable = 0;
-	pthread_mutex_lock(&(philo->left_fork->mtx));
-	show_msg("%ld: philo #%d has taken a fork\n",
-		get_time(), philo->number);
-	pthread_mutex_lock(&(philo->right_fork->mtx));
-	show_msg("%ld: philo #%d has taken a fork\n",
-		get_time(), philo->number);
-	cur_time = get_time();
-	philo->last_meal = cur_time;
-	show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
-	usleep(philo->args->eat_time * 1000);
-	philo->left_fork->enable = 1;
-	philo->right_fork->enable = 1;
-	pthread_mutex_unlock(&(philo->left_fork->mtx));
-	pthread_mutex_unlock(&(philo->right_fork->mtx));
-	philo->cntrl->meals++;
-	philo_sleep_n_think(philo);
+	pthread_mutex_lock(&(philo->mtx));
+	if (philo->left_fork->enable && philo->right_fork->enable)
+	{
+		philo->left_fork->enable = 0;
+		philo->right_fork->enable = 0;
+		pthread_mutex_lock(&(philo->left_fork->mtx));
+		show_msg("%ld: philo #%d has taken a fork\n",
+			get_time(), philo->number);
+		pthread_mutex_lock(&(philo->right_fork->mtx));
+		show_msg("%ld: philo #%d has taken a fork\n",
+			get_time(), philo->number);
+		cur_time = get_time();
+		philo->last_meal = cur_time;
+		show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
+		usleep(philo->args->eat_time * 1000);
+		philo->left_fork->enable = 1;
+		philo->right_fork->enable = 1;
+		pthread_mutex_unlock(&(philo->left_fork->mtx));
+		pthread_mutex_unlock(&(philo->right_fork->mtx));
+		pthread_mutex_unlock(&(philo->right_philo->mtx));
+		pthread_mutex_unlock(&(philo->left_philo->mtx));
+		philo->cntrl->meals++;
+		philo_sleep_n_think(philo);
+	}
 }

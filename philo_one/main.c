@@ -22,9 +22,9 @@ static void			*philo_start(void *args)
 	philo = (t_philo *)args;
 	while (1)
 	{
-		if (philo->left_fork->enable && philo->right_fork->enable)
-			eat(&philo);
+		eat(&philo);
 	}
+	return (NULL);
 }
 
 static t_controller	*create_meal_control(t_philo **head_philo)
@@ -100,7 +100,6 @@ int					main(int argc, char **argv)
 	t_philo			*philo;
 	pthread_t		meal_ctrl_thread;
 	t_controller	*meal_control;
-	t_queue 		*queue;
 	int				i;
 
 	head_philo = create_philos(argv, argc);

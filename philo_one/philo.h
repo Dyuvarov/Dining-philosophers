@@ -43,6 +43,7 @@ typedef struct	s_philo
 	pthread_t			*thread;
 	t_fork				*left_fork;
 	t_fork				*right_fork;
+	pthread_mutex_t		mtx;
 	struct s_args		*args;
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;

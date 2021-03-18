@@ -5,7 +5,7 @@ SRCS		= main.c utils.c error_handler.c init.c actions.c
 OBJS		= $(SRCS:.c=.o)
 
 CC			= gcc
-FLAGS		= -Wall -Wextra -Werror -I.
+FLAGS		= -pthread -Wall -Wextra -Werror -I.
 
 %.o:		%.c $(HEADERS)
 			$(CC) $(FLAGS) -c $< -o $@

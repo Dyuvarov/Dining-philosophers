@@ -84,6 +84,7 @@ static t_philo	*new_philo(int id, t_args *args, t_fork *forks)
 		ft_error(SYSCALL_ERR);
 	philo->args = args;
 	philo->last_meal = get_time();
+	pthread_mutex_init(&(philo->mtx), NULL);
 	return (philo);
 }
 
