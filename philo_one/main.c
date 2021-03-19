@@ -20,6 +20,8 @@ static void			*philo_start(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
+	philo->last_meal = get_time(philo->args->start_t);
+	philo->activated = 1;
 	while (1)
 	{
 		eat(&philo);
@@ -55,21 +57,27 @@ static void			*meals_controll(void *args)
 	t_controller	*ctrl;
 	int				flag;
 	int				i;
+	t_args		*arg;
 
 	ctrl = (t_controller *)args;
+	arg = ctrl[0].philo->args;
 	while (1)
 	{
 		i = 0;
 		flag = 1;
 		while (ctrl[i].philo)
 		{
-			if ((get_time() - ctrl[i].philo->last_meal) > ctrl[i].philo->args->die_time)
+			if (!(ctrl[i].philo->activated))
+				continue ; 
+			pthread_mutex_lock(ctrl[i].philo->meal_mtx);
+			if ((get_time(arg->start_t) - ctrl[i].philo->last_meal) > arg->die_time)
 				philo_death(ctrl[i].philo);
-			if (ctrl[i].philo->args->eat_num >= 0 && (ctrl[i].meals < ctrl[i].philo->args->eat_num))
+			if (arg->eat_num >= 0 && (ctrl[i].meals < arg->eat_num))
 				flag = 0;
+			pthread_mutex_unlock(ctrl[i].philo->meal_mtx);
 			++i;
 		}
-		if (flag && ctrl[i-1].philo->args->eat_num >= 0)
+		if (flag && arg->eat_num >= 0)
 			break ;
 	}
 	pthread_mutex_lock(&g_output);
@@ -106,7 +114,6 @@ int					main(int argc, char **argv)
 	meal_control = create_meal_control(&head_philo);
 	philo = head_philo;
 	i = 0;
-	//philo_start(head_philo);
 	while (i < head_philo->args->number)
 	{
 		pthread_create(philo->thread, NULL, philo_start, philo);

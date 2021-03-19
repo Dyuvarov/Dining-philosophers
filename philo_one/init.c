@@ -40,6 +40,7 @@ static t_args	*initialize_args(char **argv, int argc)
 		if (argc == 6)
 			args->eat_num = ft_atoi(argv[5]);
 		validate_args(args, argc);
+		args->start_t = get_time(0);
 		return (args);
 	}
 	else
@@ -47,26 +48,36 @@ static t_args	*initialize_args(char **argv, int argc)
 	return (NULL);
 }
 
-static t_fork	*create_forks(int number)
+static void	create_forks(t_philo *philo, int n)
 {
-	t_fork	*forks;
-	int		i;
+	int	i;
+	t_philo	*tmp;
 
-	forks = malloc(sizeof(t_fork) * number);
-	if (!forks)
-		ft_error(SYSCALL_ERR);
 	i = 0;
-	while (i < number)
+	tmp = philo;
+	while (i < n)
 	{
-		forks[i].num = i;
-		pthread_mutex_init(&(forks[i].mtx), NULL);
-		forks[i].enable = 1;
-		++i;
+		tmp->right_fork = malloc(sizeof(pthread_mutex_t));
+		if (!(tmp->right_fork))
+			ft_error(SYSCALL_ERR);
+		pthread_mutex_init(tmp->right_fork, NULL);
+		tmp = tmp->left_philo;
+		i++;
 	}
-	return (forks);
+	i = 0;
+	tmp = philo;
+	while (i < n)
+	{
+		if (i == (n - 1))
+			tmp->left_fork = philo->right_fork;
+		else
+			tmp->left_fork = tmp->left_philo->right_fork;
+		tmp = tmp->left_philo;
+		i++;
+	}
 }
 
-static t_philo	*new_philo(int id, t_args *args, t_fork *forks)
+static t_philo	*new_philo(int id, t_args *args)
 {
 	t_philo	*philo;
 
@@ -74,17 +85,13 @@ static t_philo	*new_philo(int id, t_args *args, t_fork *forks)
 	if (!philo)
 		ft_error(SYSCALL_ERR);
 	philo->number = id + 1;
-	philo->left_fork = &(forks[id]);
-	if (id - 1 >= 0)
-		philo->right_fork = &(forks[id - 1]);
-	else
-		philo->right_fork = &(forks[args->number - 1]);
 	philo->thread = malloc(sizeof(pthread_t));
 	if (!philo->thread)
 		ft_error(SYSCALL_ERR);
 	philo->args = args;
-	philo->last_meal = get_time();
-	pthread_mutex_init(&(philo->mtx), NULL);
+	philo->activated = 0;
+	philo->meal_mtx = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(philo->meal_mtx, NULL);
 	return (philo);
 }
 
@@ -94,22 +101,21 @@ t_philo			*create_philos(char **argv, int argc)
 	t_philo	*head;
 	t_philo	*tmp;
 	t_args	*args;
-	t_fork	*forks;
 
 	args = initialize_args(argv, argc);
-	forks = create_forks(args->number);
-	head = new_philo(0, args, forks);
+	head = new_philo(0, args);
 	tmp = head;
 	i = 1;
 	pthread_mutex_init(&g_output, NULL);
 	while (i < args->number)
 	{
-		tmp->left_philo = new_philo(i, args, forks);
+		tmp->left_philo = new_philo(i, args);
 		tmp->left_philo->right_philo = tmp;
 		tmp = tmp->left_philo;
 		++i;
 	}
 	tmp->left_philo = head;
 	head->right_philo = tmp;
+	create_forks(head, head->args->number);
 	return (head);
 }

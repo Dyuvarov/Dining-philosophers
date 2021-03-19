@@ -24,7 +24,8 @@ void 	show_msg(const char *str, long time, int philo_number)
 
 void	philo_death(t_philo *philo)
 {
-	show_msg("%ld: philo #%d died\n", get_time(), philo->number);
+	show_msg("%ld: philo #%d died\n", get_time(philo->args->start_t),
+		       	philo->number);
 	exit(0);
 }
 
@@ -32,12 +33,14 @@ void	*philo_sleep_n_think(void *args)
 {
 	t_philo	*philo;
 	long	cur_time;
+	t_args	*arg;
 
 	philo = (t_philo *)args;
-	cur_time = get_time();
+	arg = philo->args;
+	cur_time = get_time(arg->start_t);
 	show_msg("%ld: philo #%d is sleeping\n", cur_time, philo->number);
-	usleep(philo->args->sleep_time * 1000);
-	cur_time = get_time();
+	usleep(arg->sleep_time * 1000);
+	cur_time = get_time(arg->start_t);
 	show_msg("%ld: philo #%d is thinking\n", cur_time, philo->number);
 	return (NULL);
 }
@@ -46,30 +49,25 @@ void	eat(t_philo **ph)
 {
 	t_philo	*philo;
 	long	cur_time;
+	t_args	*arg;
 
 	philo = *ph;
-	pthread_mutex_lock(&(philo->mtx));
-	if (philo->left_fork->enable && philo->right_fork->enable)
-	{
-		philo->left_fork->enable = 0;
-		philo->right_fork->enable = 0;
-		pthread_mutex_lock(&(philo->left_fork->mtx));
-		show_msg("%ld: philo #%d has taken a fork\n",
-			get_time(), philo->number);
-		pthread_mutex_lock(&(philo->right_fork->mtx));
-		show_msg("%ld: philo #%d has taken a fork\n",
-			get_time(), philo->number);
-		cur_time = get_time();
-		philo->last_meal = cur_time;
-		show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
-		usleep(philo->args->eat_time * 1000);
-		philo->left_fork->enable = 1;
-		philo->right_fork->enable = 1;
-		pthread_mutex_unlock(&(philo->left_fork->mtx));
-		pthread_mutex_unlock(&(philo->right_fork->mtx));
-		pthread_mutex_unlock(&(philo->right_philo->mtx));
-		pthread_mutex_unlock(&(philo->left_philo->mtx));
-		philo->cntrl->meals++;
-		philo_sleep_n_think(philo);
-	}
+	arg = philo->args;
+	
+	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(philo->meal_mtx);
+	cur_time = get_time(arg->start_t);
+	philo->last_meal = cur_time;
+	philo->cntrl->meals++;
+	pthread_mutex_unlock(philo->meal_mtx);
+	show_msg("%ld: philo #%d has taken a fork\n",
+		cur_time, philo->number);
+	show_msg("%ld: philo #%d has taken a fork\n",
+		cur_time, philo->number);
+	show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
+	usleep(arg->eat_time * 1000);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	philo_sleep_n_think(philo);
 }

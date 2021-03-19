@@ -22,32 +22,27 @@ pthread_mutex_t	g_output;
 
 typedef struct	s_args
 {
-	int number;
-	int die_time;
-	int eat_time;
-	int sleep_time;
-	int eat_num;
+	int 		number;
+	int 		die_time;
+	int 		eat_time;
+	int 		sleep_time;
+	int		eat_num;
+	long		start_t;
 }				t_args;
-
-typedef struct	s_fork
-{
-	int				num;
-	pthread_mutex_t	mtx;
-	int				enable;
-}				t_fork;
 
 typedef struct	s_philo
 {
 	int					number;
 	long				last_meal;
 	pthread_t			*thread;
-	t_fork				*left_fork;
-	t_fork				*right_fork;
-	pthread_mutex_t		mtx;
+	pthread_mutex_t			*left_fork;
+	pthread_mutex_t			*right_fork;
+	pthread_mutex_t		*meal_mtx;
 	struct s_args		*args;
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
+	int			activated;
 }				t_philo;
 
 typedef struct	s_controller
@@ -66,7 +61,7 @@ int				ft_atoi(const char *str);
 int				ft_strlen(const char *str);
 void			ft_error(int code);
 t_philo			*create_philos(char	**argv, int argc);
-long			get_time();
+long			get_time(long start);
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);

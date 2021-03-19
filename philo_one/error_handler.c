@@ -14,6 +14,11 @@
 #include "unistd.h"
 #include <stdlib.h>
 
+void	cleaner(t_philo *head)
+{
+
+}
+
 void	ft_error(int code)
 {
 	if (code == ARGS_ERR)
