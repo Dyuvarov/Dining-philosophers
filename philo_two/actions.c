@@ -20,7 +20,7 @@ void	philo_death(t_philo *philo)
 	int		i;
 	t_philo *tmp;
 
-	show_msg("%ld: philo #%d died\n", get_time(), philo->number);
+	show_msg("%ld: philo #%d died\n", get_time(), philo);
 	i = 0;
 	tmp = philo;
 	while(i < philo->args->number)
@@ -29,7 +29,7 @@ void	philo_death(t_philo *philo)
 		tmp = tmp->left_philo;
 		++i;
 	}
-	unlink_sems();
+	unlink_sems(philo);
 	exit(0);
 }
 
@@ -40,10 +40,10 @@ void	*philo_sleep_n_think(void *args)
 
 	philo = (t_philo *)args;
 	cur_time = get_time();
-	show_msg("%ld: philo #%d is sleeping\n", cur_time, philo->number);
+	show_msg("%ld: philo #%d is sleeping\n", cur_time, philo);
 	usleep(philo->args->sleep_time * 1000);
 	cur_time = get_time();
-	show_msg("%ld: philo #%d is thinking\n", cur_time, philo->number);
+	show_msg("%ld: philo #%d is thinking\n", cur_time, philo);
 	return (NULL);
 }
 
@@ -53,16 +53,18 @@ void	eat(t_philo **ph)
 	long	cur_time;
 
 	philo = *ph;
-	sem_wait(g_forks);
-	show_msg("%ld: philo #%d has taken a fork\n",
-			 get_time(), philo->number);
-	show_msg("%ld: philo #%d has taken a fork\n",
-		get_time(), philo->number);
+	sem_wait(philo->args->forks_sem);
+	sem_wait(philo->meal_sem);
 	cur_time = get_time();
 	philo->last_meal = cur_time;
-	show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
-	usleep(philo->args->eat_time * 1000);
-	sem_post(g_forks);
 	philo->cntrl->meals++;
+	sem_post(philo->meal_sem);
+	show_msg("%ld: philo #%d has taken a fork\n",
+		       	cur_time, philo);
+	show_msg("%ld: philo #%d has taken a fork\n",
+			cur_time, philo);
+	show_msg("%ld: philo #%d is eating\n", cur_time, philo);
+	usleep(philo->args->eat_time * 1000);
+	sem_post(philo->args->forks_sem);
 	philo_sleep_n_think(philo);
 }

@@ -1,5 +1,6 @@
 #include "philo.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static void			wait_threads_finish(t_philo *head_philo)
 {
@@ -53,10 +54,12 @@ static void			*meals_controll(void *args)
 		flag = 1;
 		while (ctrl[i].philo)
 		{
+			sem_wait(ctrl[i].philo->meal_sem);
 			if ((get_time() - ctrl[i].philo->last_meal) > ctrl[i].philo->args->die_time)
 				philo_death(ctrl[i].philo);
 			if (ctrl[i].philo->args->eat_num >= 0 && (ctrl[i].meals < ctrl[i].philo->args->eat_num))
 				flag = 0;
+			sem_post(ctrl[i].philo->meal_sem);
 			++i;
 		}
 		if (ctrl[i-1].philo->args->eat_num >= 0 && flag)
@@ -69,10 +72,11 @@ static void			*meals_controll(void *args)
 static void			*philo_start(void *args)
 {
 	t_philo	*philo;
-
+	
 	philo = (t_philo *)args;
 	while (1)
 		eat(&philo);
+	return (NULL);
 }
 
 int main(int argc, char **argv) {
@@ -81,10 +85,10 @@ int main(int argc, char **argv) {
 	pthread_t		meal_ctrl_thread;
 	t_controller	*meal_control;
 	int				i;
-
+	
+	//unlink_sems(NULL);
 	head_philo = create_philos(argv, argc);
 	meal_control = create_meal_control(&head_philo);
-	init_sems(head_philo->args->number);
 	philo = head_philo;
 	i = 0;
 	while (i < head_philo->args->number)

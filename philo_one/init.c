@@ -18,9 +18,9 @@ static void		validate_args(t_args *args, int argc)
 {
 	if (args->number < 2 || args->die_time < 0 || args->eat_time < 0 \
 											|| args->sleep_time < 0)
-		ft_error(ARGS_ERR);
+		ft_error(ARGS_ERR, NULL);
 	if (argc == 6 && args->eat_num < 0)
-		ft_error(ARGS_ERR);
+		ft_error(ARGS_ERR, NULL);
 }
 
 static t_args	*initialize_args(char **argv, int argc)
@@ -31,7 +31,7 @@ static t_args	*initialize_args(char **argv, int argc)
 	{
 		args = malloc(sizeof(t_args));
 		if (!args)
-			ft_error(SYSCALL_ERR);
+			ft_error(SYSCALL_ERR, NULL);
 		args->number = ft_atoi(argv[1]);
 		args->die_time = ft_atoi(argv[2]);
 		args->eat_time = ft_atoi(argv[3]);
@@ -41,10 +41,14 @@ static t_args	*initialize_args(char **argv, int argc)
 			args->eat_num = ft_atoi(argv[5]);
 		validate_args(args, argc);
 		args->start_t = get_time(0);
+		args->output = malloc(sizeof(pthread_mutex_t));
+		if (!args->output)
+			ft_error(SYSCALL_ERR, NULL);
+		pthread_mutex_init(args->output, NULL);
 		return (args);
 	}
 	else
-		ft_error(ARGS_ERR);
+		ft_error(ARGS_ERR, NULL);
 	return (NULL);
 }
 
@@ -59,7 +63,7 @@ static void	create_forks(t_philo *philo, int n)
 	{
 		tmp->right_fork = malloc(sizeof(pthread_mutex_t));
 		if (!(tmp->right_fork))
-			ft_error(SYSCALL_ERR);
+			ft_error(SYSCALL_ERR, philo);
 		pthread_mutex_init(tmp->right_fork, NULL);
 		tmp = tmp->left_philo;
 		i++;
@@ -83,11 +87,11 @@ static t_philo	*new_philo(int id, t_args *args)
 
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
-		ft_error(SYSCALL_ERR);
+		ft_error(SYSCALL_ERR, NULL);
 	philo->number = id + 1;
 	philo->thread = malloc(sizeof(pthread_t));
 	if (!philo->thread)
-		ft_error(SYSCALL_ERR);
+		ft_error(SYSCALL_ERR, NULL);
 	philo->args = args;
 	philo->activated = 0;
 	philo->meal_mtx = malloc(sizeof(pthread_mutex_t));
@@ -106,7 +110,6 @@ t_philo			*create_philos(char **argv, int argc)
 	head = new_philo(0, args);
 	tmp = head;
 	i = 1;
-	pthread_mutex_init(&g_output, NULL);
 	while (i < args->number)
 	{
 		tmp->left_philo = new_philo(i, args);

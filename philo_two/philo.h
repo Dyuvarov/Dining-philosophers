@@ -19,9 +19,6 @@
 # define ARGS_ERR		100
 # define SYSCALL_ERR	101
 
-sem_t	*g_forks;
-sem_t	*g_output;
-
 typedef struct	s_args
 {
 	int number;
@@ -29,6 +26,8 @@ typedef struct	s_args
 	int eat_time;
 	int sleep_time;
 	int eat_num;
+	sem_t	*forks_sem;
+	sem_t	*output_sem;
 }				t_args;
 
 typedef struct	s_philo
@@ -40,6 +39,7 @@ typedef struct	s_philo
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
+	sem_t			*meal_sem;
 }				t_philo;
 
 typedef struct	s_controller
@@ -49,6 +49,7 @@ typedef struct	s_controller
 }				t_controller;
 
 int				ft_atoi(const char *str);
+char			*ft_itoa(int n);
 int				ft_strlen(const char *str);
 void			ft_error(int code);
 t_philo			*create_philos(char	**argv, int argc);
@@ -56,7 +57,7 @@ long			get_time();
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
-void 			init_sems(int philo_num);
-void			unlink_sems(void);
-void			show_msg(const char * str, long time, int philo_number);
+sem_t 			*init_sem(char *name, int value);
+void			unlink_sems(t_philo *philo);
+void			show_msg(const char * str, long time, t_philo *philo);
 #endif

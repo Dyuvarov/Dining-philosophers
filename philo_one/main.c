@@ -37,7 +37,7 @@ static t_controller	*create_meal_control(t_philo **head_philo)
 
 	ctrl = malloc(sizeof(t_controller) * ((*head_philo)->args->number + 1));
 	if (!ctrl)
-		ft_error(SYSCALL_ERR);
+		ft_error(SYSCALL_ERR, *head_philo);
 	ph_tmp = *head_philo;
 	i = 0;
 	while (i < ph_tmp->args->number)
@@ -80,10 +80,11 @@ static void			*meals_controll(void *args)
 		if (flag && arg->eat_num >= 0)
 			break ;
 	}
-	pthread_mutex_lock(&g_output);
+	pthread_mutex_lock(arg->output);
 	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n", ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
-	pthread_mutex_unlock(&g_output);
-	exit(0);
+	pthread_mutex_unlock(arg->output);
+	cleaner(ctrl[0].philo, 0);
+	exit(EXIT_SUCCESS);
 }
 
 static void			wait_threads_finish(t_philo *head_philo)

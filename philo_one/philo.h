@@ -18,8 +18,6 @@
 # define ARGS_ERR		100
 # define SYSCALL_ERR	101
 
-pthread_mutex_t	g_output;
-
 typedef struct	s_args
 {
 	int 		number;
@@ -28,6 +26,7 @@ typedef struct	s_args
 	int 		sleep_time;
 	int		eat_num;
 	long		start_t;
+	pthread_mutex_t	*output;
 }				t_args;
 
 typedef struct	s_philo
@@ -51,18 +50,13 @@ typedef struct	s_controller
 	int		meals;
 }				t_controller;
 
-typedef struct	s_queue
-{
-	t_philo			*philo;
-	struct s_queue	*next;
-}				t_queue;
-
 int				ft_atoi(const char *str);
 int				ft_strlen(const char *str);
-void			ft_error(int code);
+void			ft_error(int code, t_philo *philo);
 t_philo			*create_philos(char	**argv, int argc);
 long			get_time(long start);
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
+void			cleaner(t_philo *philo, int i);
 #endif

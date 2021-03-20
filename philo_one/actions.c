@@ -15,17 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void 	show_msg(const char *str, long time, int philo_number)
+void 	show_msg(const char *str, long time, t_philo *philo)
 {
-	pthread_mutex_lock(&g_output);
-	printf(str, time, philo_number);
-	pthread_mutex_unlock(&g_output);
+	pthread_mutex_lock(philo->args->output);
+	printf(str, time, philo->number);
+	pthread_mutex_unlock(philo->args->output);
 }
 
 void	philo_death(t_philo *philo)
 {
 	show_msg("%ld: philo #%d died\n", get_time(philo->args->start_t),
-		       	philo->number);
+		       	philo);
 	exit(0);
 }
 
@@ -38,10 +38,10 @@ void	*philo_sleep_n_think(void *args)
 	philo = (t_philo *)args;
 	arg = philo->args;
 	cur_time = get_time(arg->start_t);
-	show_msg("%ld: philo #%d is sleeping\n", cur_time, philo->number);
+	show_msg("%ld: philo #%d is sleeping\n", cur_time, philo);
 	usleep(arg->sleep_time * 1000);
 	cur_time = get_time(arg->start_t);
-	show_msg("%ld: philo #%d is thinking\n", cur_time, philo->number);
+	show_msg("%ld: philo #%d is thinking\n", cur_time, philo);
 	return (NULL);
 }
 
@@ -62,10 +62,10 @@ void	eat(t_philo **ph)
 	philo->cntrl->meals++;
 	pthread_mutex_unlock(philo->meal_mtx);
 	show_msg("%ld: philo #%d has taken a fork\n",
-		cur_time, philo->number);
+		cur_time, philo);
 	show_msg("%ld: philo #%d has taken a fork\n",
-		cur_time, philo->number);
-	show_msg("%ld: philo #%d is eating\n", cur_time, philo->number);
+		cur_time, philo);
+	show_msg("%ld: philo #%d is eating\n", cur_time, philo);
 	usleep(arg->eat_time * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);

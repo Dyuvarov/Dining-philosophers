@@ -19,7 +19,8 @@ static t_philo	*new_philo(int id, t_args *args)
 		ft_error(SYSCALL_ERR);
 	philo->number = id + 1;
 	philo->thread = malloc(sizeof(pthread_t));
-	if (!philo->thread)
+	philo->meal_sem = init_sem(ft_itoa(philo->number), 1);
+	if (!philo->thread || !(philo->meal_sem))
 		ft_error(SYSCALL_ERR);
 	philo->args = args;
 	return (philo);
@@ -42,6 +43,10 @@ static t_args	*initialize_args(char **argv, int argc)
 		if (argc == 6)
 			args->eat_num = ft_atoi(argv[5]);
 		validate_args(args, argc);
+		args->forks_sem = init_sem("forks", (args->number / 2));
+		args->output_sem = init_sem("output", 1);
+		if (!(args->forks_sem) || !(args->output_sem))
+				ft_error(SYSCALL_ERR);
 		return (args);
 	}
 	else
@@ -61,6 +66,7 @@ t_philo			*create_philos(char **argv, int argc)
 	head = new_philo(0, args);
 	tmp = head;
 	i = 1;
+	
 	cur_time = get_time();
 	while (i < args->number)
 	{

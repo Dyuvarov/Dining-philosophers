@@ -1,25 +1,38 @@
 #include "philo.h"
 #include <stdio.h>
+#include <fcntl.h>
 
-void 	show_msg(const char *str, long time, int philo_number)
+void 	show_msg(const char *str, long time, t_philo *philo)
 {
-	sem_wait(g_output);
-	printf(str, time, philo_number);
-	sem_post(g_output);
+	sem_wait(philo->args->output_sem);
+	printf(str, time, philo->number);
+	sem_post(philo->args->output_sem);
 }
 
-void	init_sems(int philo_num)
+sem_t	*init_sem(char *name, int value)
 {
-	g_forks = sem_open("forks", O_CREAT, 0666, (philo_num / 2));
-	if (g_forks == SEM_FAILED)
-		ft_error(SYSCALL_ERR);
-	g_output = sem_open("output", O_CREAT, 0666, 1);
-	if (g_output == SEM_FAILED)
-		ft_error(SYSCALL_ERR);
+	sem_t	*sem;
+	
+	if (!name)
+		return (NULL);
+	sem = sem_open(name, O_CREAT, 0666, value);
+	if (sem == SEM_FAILED)
+		return (NULL);
+	else
+		return (sem);
 }
 
-void	unlink_sems(void)
+void	unlink_sems(t_philo *philo)
 {
+	int	i;
+
+	(void)philo;
+	i = 1;
+	while (i <= 5)
+	{
+		sem_unlink(ft_itoa(i));
+		++i;
+	}
 	sem_unlink("forks");
 	sem_unlink("output");
 }
