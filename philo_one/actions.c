@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 14:23:41 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/17 13:12:30 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:22:57 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void 	show_msg(const char *str, long time, t_philo *philo)
+void	show_msg(const char *str, long time, t_philo *philo)
 {
 	pthread_mutex_lock(philo->args->output);
 	printf(str, time, philo->number);
@@ -24,8 +24,10 @@ void 	show_msg(const char *str, long time, t_philo *philo)
 
 void	philo_death(t_philo *philo)
 {
-	show_msg("%ld: philo #%d died\n", get_time(philo->args->start_t),
-		       	philo);
+	t_args *arg;
+
+	arg = philo->args;
+	show_msg("%ld: philo #%d died\n", get_time(arg->start_t), philo);
 	exit(0);
 }
 
@@ -53,19 +55,18 @@ void	eat(t_philo **ph)
 
 	philo = *ph;
 	arg = philo->args;
-	
 	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->meal_mtx);
 	cur_time = get_time(arg->start_t);
 	philo->last_meal = cur_time;
-    pthread_mutex_unlock(philo->meal_mtx);
+	pthread_mutex_unlock(philo->meal_mtx);
 	show_msg("%ld: philo #%d has taken a fork\n",
 		cur_time, philo);
 	show_msg("%ld: philo #%d has taken a fork\n",
 		cur_time, philo);
 	show_msg("%ld: philo #%d is eating\n", cur_time, philo);
-    philo->cntrl->meals++;
+	philo->cntrl->meals++;
 	usleep(arg->eat_time * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);

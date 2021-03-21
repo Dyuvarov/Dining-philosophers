@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:36:55 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:31:26 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:23:31 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cleaner(t_philo *philo, int i)
 {
 	if (i == (philo->number - 1))
 	{
-		cleaner(philo->left_philo, i+1);
+		cleaner(philo->left_philo, i + 1);
 		if (i == 0)
 		{
 			free(philo->args);
@@ -43,6 +43,6 @@ void	ft_error(int code, t_philo *philo)
 		write(2, "ERROR: system call failed!\n",
 			ft_strlen("ERROR: system call failed!\n"));
 	if (philo)
-		cleaner(philo, 0);	
+		cleaner(philo, 0);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:03 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/17 13:35:38 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:24:09 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static t_args	*initialize_args(char **argv, int argc)
 	return (NULL);
 }
 
-static void	create_forks(t_philo *philo, int n)
+static void		create_forks(t_philo *philo, int n)
 {
-	int	i;
+	int		i;
 	t_philo	*tmp;
 
 	i = 0;

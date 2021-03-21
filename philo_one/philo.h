@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/16 15:07:23 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:25:53 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 typedef struct	s_args
 {
-	int 		number;
-	int 		die_time;
-	int 		eat_time;
-	int 		sleep_time;
-	int		eat_num;
-	long		start_t;
+	int				number;
+	int				die_time;
+	int				eat_time;
+	int				sleep_time;
+	int				eat_num;
+	long			start_t;
 	pthread_mutex_t	*output;
 }				t_args;
 
@@ -34,14 +34,14 @@ typedef struct	s_philo
 	int					number;
 	long				last_meal;
 	pthread_t			*thread;
-	pthread_mutex_t			*left_fork;
-	pthread_mutex_t			*right_fork;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*meal_mtx;
 	struct s_args		*args;
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
-	int			activated;
+	int					activated;
 }				t_philo;
 
 typedef struct	s_controller

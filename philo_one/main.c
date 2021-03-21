@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:09 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/17 13:39:05 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:30:52 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void			*meals_controll(void *args)
 	t_controller	*ctrl;
 	int				flag;
 	int				i;
-	t_args		*arg;
+	t_args			*arg;
+	t_philo			*philo;
 
 	ctrl = (t_controller *)args;
 	arg = ctrl[0].philo->args;
@@ -67,21 +68,26 @@ static void			*meals_controll(void *args)
 		flag = 1;
 		while (ctrl[i].philo)
 		{
+			philo = ctrl[i].philo;
 			if (!(ctrl[i].philo->activated))
-				continue ; 
+				continue ;
 			pthread_mutex_lock(ctrl[i].philo->meal_mtx);
-			if ((get_time(arg->start_t) - ctrl[i].philo->last_meal) >= (arg->die_time + 9))
-				philo_death(ctrl[i].philo);
+			if ((get_time(arg->start_t) - philo->last_meal) >=
+										(arg->die_time + 9))
+			{
+				philo_death(philo);
+			}
 			if (arg->eat_num >= 0 && (ctrl[i].meals < arg->eat_num))
 				flag = 0;
-			pthread_mutex_unlock(ctrl[i].philo->meal_mtx);
+			pthread_mutex_unlock(philo->meal_mtx);
 			++i;
 		}
 		if (flag && arg->eat_num >= 0)
 			break ;
 	}
 	pthread_mutex_lock(arg->output);
-	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n", ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
+	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n",
+		ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
 	pthread_mutex_unlock(arg->output);
 	cleaner(ctrl[0].philo, 0);
 	exit(EXIT_SUCCESS);
