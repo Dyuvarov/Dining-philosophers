@@ -4,9 +4,12 @@
 
 void 	show_msg(const char *str, long time, t_philo *philo)
 {
-	sem_wait(philo->args->output_sem);
+	t_args	*arg;
+
+	arg = philo->args;
+	sem_wait(arg->output_sem);
 	printf(str, time, philo->number);
-	sem_post(philo->args->output_sem);
+	sem_post(arg->output_sem);
 }
 
 sem_t	*init_sem(char *name, int value)
@@ -22,13 +25,12 @@ sem_t	*init_sem(char *name, int value)
 		return (sem);
 }
 
-void	unlink_sems(t_philo *philo)
+void	unlink_sems(t_args *args)
 {
 	int	i;
 
-	(void)philo;
 	i = 1;
-	while (i <= 5)
+	while (i <= args->number)
 	{
 		sem_unlink(ft_itoa(i));
 		++i;

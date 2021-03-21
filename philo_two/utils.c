@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:20 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:39:18 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 09:14:52 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ int			ft_strlen(const char *str)
 	return (len);
 }
 
-long		get_time(void)
+long		get_time(long start)
 {
 	struct timeval	tv;
-	long			result;
+	long		cur_time;
 
 	gettimeofday(&tv, NULL);
-	result = (long)tv.tv_sec * 1000 + (long)tv.tv_usec / 1000;
-	return (result);
+	cur_time = (long)tv.tv_sec * 1000 + (long)tv.tv_usec / 1000;
+	if(start == 0)
+		return cur_time;
+	else
+		return (cur_time - start);
 }
 
 static int	ft_isspace(char c)

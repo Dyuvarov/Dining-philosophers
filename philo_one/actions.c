@@ -59,13 +59,13 @@ void	eat(t_philo **ph)
 	pthread_mutex_lock(philo->meal_mtx);
 	cur_time = get_time(arg->start_t);
 	philo->last_meal = cur_time;
-	philo->cntrl->meals++;
-	pthread_mutex_unlock(philo->meal_mtx);
+    pthread_mutex_unlock(philo->meal_mtx);
 	show_msg("%ld: philo #%d has taken a fork\n",
 		cur_time, philo);
 	show_msg("%ld: philo #%d has taken a fork\n",
 		cur_time, philo);
 	show_msg("%ld: philo #%d is eating\n", cur_time, philo);
+    philo->cntrl->meals++;
 	usleep(arg->eat_time * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);

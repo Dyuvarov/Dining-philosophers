@@ -23,10 +23,12 @@ static t_philo	*new_philo(int id, t_args *args)
 	if (!philo->thread || !(philo->meal_sem))
 		ft_error(SYSCALL_ERR);
 	philo->args = args;
+	philo->activated = 0;
+	philo->last_meal = args->start_t;
 	return (philo);
 }
 
-static t_args	*initialize_args(char **argv, int argc)
+t_args	*initialize_args(char **argv, int argc)
 {
 	t_args *args;
 
@@ -43,6 +45,7 @@ static t_args	*initialize_args(char **argv, int argc)
 		if (argc == 6)
 			args->eat_num = ft_atoi(argv[5]);
 		validate_args(args, argc);
+		args->start_t = get_time(0);
 		args->forks_sem = init_sem("forks", (args->number / 2));
 		args->output_sem = init_sem("output", 1);
 		if (!(args->forks_sem) || !(args->output_sem))
@@ -54,30 +57,23 @@ static t_args	*initialize_args(char **argv, int argc)
 	return (NULL);
 }
 
-t_philo			*create_philos(char **argv, int argc)
+t_philo			*create_philos(t_args *args)
 {
 	int		i;
 	t_philo	*head;
 	t_philo	*tmp;
-	t_args	*args;
-	long 	cur_time;
 
-	args = initialize_args(argv, argc);
 	head = new_philo(0, args);
 	tmp = head;
 	i = 1;
-	
-	cur_time = get_time();
 	while (i < args->number)
 	{
 		tmp->left_philo = new_philo(i, args);
 		tmp->left_philo->right_philo = tmp;
-		tmp->last_meal = cur_time;
 		tmp = tmp->left_philo;
 		++i;
 	}
 	tmp->left_philo = head;
 	head->right_philo = tmp;
-	tmp->last_meal = cur_time;
 	return (head);
 }

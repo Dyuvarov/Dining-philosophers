@@ -1,6 +1,7 @@
 #include "philo.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 static void			wait_threads_finish(t_philo *head_philo)
 {
@@ -46,27 +47,31 @@ static void			*meals_controll(void *args)
 	t_controller	*ctrl;
 	int				flag;
 	int				i;
+	t_args			*arg;
 
 	ctrl = (t_controller *)args;
+	arg = ctrl[0].philo->args;
 	while (1)
 	{
 		i = 0;
 		flag = 1;
-		while (ctrl[i].philo)
+		while (ctrl[i].philo && ctrl[i].philo->activated)
 		{
 			sem_wait(ctrl[i].philo->meal_sem);
-			if ((get_time() - ctrl[i].philo->last_meal) > ctrl[i].philo->args->die_time)
+			if ((get_time(arg->start_t) - ctrl[i].philo->last_meal) >= (arg->die_time + 9))
 				philo_death(ctrl[i].philo);
-			if (ctrl[i].philo->args->eat_num >= 0 && (ctrl[i].meals < ctrl[i].philo->args->eat_num))
+			sem_post(ctrl[i].philo->meal_sem);	
+			if (arg->eat_num >= 0 && (ctrl[i].meals < arg->eat_num))
 				flag = 0;
-			sem_post(ctrl[i].philo->meal_sem);
 			++i;
 		}
-		if (ctrl[i-1].philo->args->eat_num >= 0 && flag)
+		if (arg->eat_num >= 0 && flag)
 			break ;
 	}
-	sem_unlink("forks");
-	exit(0);
+	sem_wait(arg->output_sem);
+	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n", ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
+	unlink_sems(arg);
+	exit(EXIT_SUCCESS);
 }
 
 static void			*philo_start(void *args)
@@ -74,6 +79,7 @@ static void			*philo_start(void *args)
 	t_philo	*philo;
 	
 	philo = (t_philo *)args;
+	philo->activated = 1;
 	while (1)
 		eat(&philo);
 	return (NULL);
@@ -85,9 +91,12 @@ int main(int argc, char **argv) {
 	pthread_t		meal_ctrl_thread;
 	t_controller	*meal_control;
 	int				i;
+	t_args			*args;
 	
-	//unlink_sems(NULL);
-	head_philo = create_philos(argv, argc);
+	args = initialize_args(argv, argc);
+	printf("eat time = %d\n", args->eat_time);
+	unlink_sems(args);
+	head_philo = create_philos(args);
 	meal_control = create_meal_control(&head_philo);
 	philo = head_philo;
 	i = 0;

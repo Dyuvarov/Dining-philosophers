@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:43:51 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 10:12:11 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 typedef struct	s_args
 {
 	int number;
-	int die_time;
-	int eat_time;
-	int sleep_time;
+	unsigned int die_time;
+	unsigned int eat_time;
+	unsigned int sleep_time;
 	int eat_num;
 	sem_t	*forks_sem;
 	sem_t	*output_sem;
+	long	start_t;
 }				t_args;
 
 typedef struct	s_philo
@@ -39,7 +40,8 @@ typedef struct	s_philo
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
-	sem_t			*meal_sem;
+	sem_t				*meal_sem;
+	int					activated;
 }				t_philo;
 
 typedef struct	s_controller
@@ -52,12 +54,13 @@ int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
 int				ft_strlen(const char *str);
 void			ft_error(int code);
-t_philo			*create_philos(char	**argv, int argc);
-long			get_time();
+t_philo			*create_philos(t_args *args);
+long			get_time(long start);
 void			eat(t_philo **ph);
-void			*philo_sleep_n_think(void *args);
+void			philo_sleep_n_think(t_philo *philo);
 void			philo_death(t_philo *philo);
+t_args			*initialize_args(char **argv, int argc);
 sem_t 			*init_sem(char *name, int value);
-void			unlink_sems(t_philo *philo);
+void			unlink_sems(t_args *args);
 void			show_msg(const char * str, long time, t_philo *philo);
 #endif

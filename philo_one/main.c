@@ -70,7 +70,7 @@ static void			*meals_controll(void *args)
 			if (!(ctrl[i].philo->activated))
 				continue ; 
 			pthread_mutex_lock(ctrl[i].philo->meal_mtx);
-			if ((get_time(arg->start_t) - ctrl[i].philo->last_meal) > arg->die_time)
+			if ((get_time(arg->start_t) - ctrl[i].philo->last_meal) >= (arg->die_time + 9))
 				philo_death(ctrl[i].philo);
 			if (arg->eat_num >= 0 && (ctrl[i].meals < arg->eat_num))
 				flag = 0;
