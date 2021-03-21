@@ -19,7 +19,7 @@ static void			*philo_start(void *args)
 	pthread_detach(meal_ctrl_thread);
 }
 
-void	create_procceses(t_philo **arr)
+/*void	create_procceses(t_philo **arr)
 {
 	int i;
 
@@ -28,12 +28,34 @@ void	create_procceses(t_philo **arr)
 	{
 		arr[i]->pid = fork();
 		if (arr[i]->pid < 0)
-			ft_error(SYSCALL_ERR);
+			ft_error(SYSCALL_ERR, arr[i]->args);
 		else if (arr[i]->pid == 0)
 		{
 			philo_start(arr[i]);
-			exit (0);
+			exit (EXIT_SUCCESS);
 		}
+		++i;
+	}
+}*/
+
+void	create_procceses(t_philo *philo)
+{
+	int i;
+	t_philo	*tmp;
+
+	i = 0;
+	tmp = philo;
+	while(i < philo->args->number)
+	{
+		tmp->pid = fork();
+		if (tmp->pid < 0)
+			ft_error(SYSCALL_ERR, tmp->args);
+		else if (tmp->pid == 0)
+		{
+			philo_start(tmp);
+			exit (EXIT_SUCCESS);
+		}
+		tmp = tmp->left_philo;
 		++i;
 	}
 }
@@ -46,7 +68,7 @@ t_philo	**get_philo_arr(t_philo *head_philo)
 
 	arr = malloc(sizeof(t_philo *) * (head_philo->args->number + 1));
 	if (!arr)
-		ft_error(SYSCALL_ERR);
+		ft_error(SYSCALL_ERR, head_philo->args);
 	i = 0;
 	tmp = head_philo;
 	while(i < head_philo->args->number)
@@ -59,20 +81,22 @@ t_philo	**get_philo_arr(t_philo *head_philo)
 	return (arr);
 }
 
-int		main(int argc, char **argv, char **env)
+int		main(int argc, char **argv)
 {
 	t_philo			*head_philo;
 	t_philo			**philo_arr;
 	pthread_t		meal_count_controller;
 	int				i;
+	t_args			*args;
 
-	head_philo = create_philos(argv, argc);
+	args = initialize_args(argv, argc);
+	unlink_sems(args);
+	head_philo = create_philos(args);
 	philo_arr = get_philo_arr(head_philo);
-	init_sems(head_philo->args->number);
 	pthread_create(&meal_count_controller, NULL, meal_count_controll, head_philo);
-	create_procceses(philo_arr);
-	sem_wait(g_finish);
-	sem_wait(g_output);
+	create_procceses(head_philo);
+	sem_wait(args->finish_sem);
+	sem_wait(args->output_sem);
 	i = 0;
 	while (philo_arr[i])
 	{
@@ -80,10 +104,6 @@ int		main(int argc, char **argv, char **env)
 		++i;
 	}
 	pthread_detach(meal_count_controller);
-	unlink_sems(philo_arr);
-	while(1)
-	{
-		int q=1;
-	}
+	unlink_sems(args);
 	return (0);
 }

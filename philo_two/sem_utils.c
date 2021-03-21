@@ -1,6 +1,7 @@
 #include "philo.h"
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 void 	show_msg(const char *str, long time, t_philo *philo)
 {
@@ -28,11 +29,14 @@ sem_t	*init_sem(char *name, int value)
 void	unlink_sems(t_args *args)
 {
 	int	i;
+	char	*sem_name;
 
 	i = 1;
 	while (i <= args->number)
 	{
-		sem_unlink(ft_itoa(i));
+		sem_name = ft_itoa(i);
+		sem_unlink(sem_name);
+		free(sem_name);
 		++i;
 	}
 	sem_unlink("forks");

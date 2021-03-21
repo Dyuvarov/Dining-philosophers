@@ -94,7 +94,6 @@ int main(int argc, char **argv) {
 	t_args			*args;
 	
 	args = initialize_args(argv, argc);
-	printf("eat time = %d\n", args->eat_time);
 	unlink_sems(args);
 	head_philo = create_philos(args);
 	meal_control = create_meal_control(&head_philo);

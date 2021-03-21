@@ -19,7 +19,8 @@ static t_philo	*new_philo(int id, t_args *args)
 		ft_error(SYSCALL_ERR);
 	philo->number = id + 1;
 	philo->thread = malloc(sizeof(pthread_t));
-	philo->meal_sem = init_sem(ft_itoa(philo->number), 1);
+	philo->sem_name = ft_itoa(philo->number);
+	philo->meal_sem = init_sem(philo->sem_name, 1);
 	if (!philo->thread || !(philo->meal_sem))
 		ft_error(SYSCALL_ERR);
 	philo->args = args;

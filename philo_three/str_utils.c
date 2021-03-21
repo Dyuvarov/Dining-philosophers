@@ -46,7 +46,7 @@ char		*ft_itoa(int n)
 	ncpy = n;
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (str == NULL)
-		ft_error(SYSCALL_ERR);
+		return (NULL);
 	i = 0;
 	while (ncpy > 0)
 	{

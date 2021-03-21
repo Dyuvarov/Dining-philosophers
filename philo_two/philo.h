@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 10:12:11 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 11:33:35 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_args
 	unsigned int die_time;
 	unsigned int eat_time;
 	unsigned int sleep_time;
-	int eat_num;
+	int 	eat_num;
 	sem_t	*forks_sem;
 	sem_t	*output_sem;
 	long	start_t;
@@ -40,6 +40,7 @@ typedef struct	s_philo
 	struct s_controller	*cntrl;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
+	char				*sem_name;
 	sem_t				*meal_sem;
 	int					activated;
 }				t_philo;

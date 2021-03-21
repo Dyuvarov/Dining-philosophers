@@ -5,14 +5,18 @@
 void	*philo_controll(void *args)
 {
 	t_philo	*philo;
+	t_args	*arg;
 
 	philo = (t_philo *)args;
+	arg = philo->args;
 	while(1)
 	{
-		if ((get_time() - philo->last_meal) > philo->args->die_time)
+		sem_wait(philo->meal_sem);
+		if ((get_time(arg->start_t) - philo->last_meal) >= (arg->die_time + 9))
 			philo_death(philo);
-		if (philo->args->eat_num >= 0 && (philo->meals >= philo->args->eat_num))
-			sem_post(philo->meal_sem);
+		sem_post(philo->meal_sem);
+		if (arg->eat_num >= 0 && (philo->meals >= arg->eat_num))
+			sem_post(philo->meal_count_sem);
 	}
 	return (NULL);
 }
@@ -28,13 +32,13 @@ void 	*meal_count_controll(void *args)
 	tmp = head_philo;
 	while(i < head_philo->args->number)
 	{
-		sem_wait(tmp->meal_sem);
+		sem_wait(tmp->meal_count_sem);
 		tmp = tmp->left_philo;
 		++i;
 	}
-	sem_wait(g_output);
+	sem_wait(head_philo->args->output_sem);
 	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n", ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
-	sem_post(g_output);
-	sem_post(g_finish);
+	sem_post(head_philo->args->output_sem);
+	sem_post(head_philo->args->finish_sem);
 	return (NULL);
 }

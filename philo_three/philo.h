@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/14 14:43:51 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/21 13:32:52 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
 # define ARGS_ERR		100
 # define SYSCALL_ERR	101
 
-sem_t	*g_forks;
-sem_t	*g_output;
-sem_t	*g_finish;
-
 typedef struct	s_args
 {
-	int number;
-	int die_time;
-	int eat_time;
-	int sleep_time;
-	int eat_num;
+	int		number;
+	int		die_time;
+	int		eat_time;
+	int		sleep_time;
+	int		eat_num;
+	long	start_t;
+	sem_t	*forks_sem;
+	sem_t	*output_sem;
+	sem_t	*finish_sem;
 }				t_args;
 
 typedef struct	s_philo
@@ -42,6 +42,8 @@ typedef struct	s_philo
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
 	char 				*sem_name;
+	char				*meal_sem_name;
+	sem_t				*meal_count_sem;
 	sem_t				*meal_sem;
 }				t_philo;
 
@@ -50,15 +52,16 @@ int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
 int				ft_strlen(const char *str);
 char			*ft_strjoin(char const *s1, char const *s2);
-void			ft_error(int code);
-t_philo			*create_philos(char	**argv, int argc);
-long			get_time();
+void			ft_error(int code, t_args *args);
+t_philo			*create_philos(t_args *args);
+long			get_time(long start);
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
-void 			init_sems(int philo_num);
-void			unlink_sems(t_philo **philo_arr);
-void			show_msg(const char * str, long time, int philo_number);
+t_args			*initialize_args(char **argv, int argc);
+sem_t			*init_sem(char *name, int value);
+void			unlink_sems(t_args *args);
+void			show_msg(const char *str, long time, t_philo *philo);
 void			*philo_controll(void *args);
 void 			*meal_count_controll(void *args);
 #endif
