@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:20 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 09:14:52 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:33:56 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int			ft_strlen(const char *str)
 long		get_time(long start)
 {
 	struct timeval	tv;
-	long		cur_time;
+	long			cur_time;
 
 	gettimeofday(&tv, NULL);
 	cur_time = (long)tv.tv_sec * 1000 + (long)tv.tv_usec / 1000;
-	if(start == 0)
-		return cur_time;
+	if (start == 0)
+		return (cur_time);
 	else
 		return (cur_time - start);
 }

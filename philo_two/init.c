@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 13:34:19 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 13:35:44 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdlib.h>
 
@@ -29,9 +41,9 @@ static t_philo	*new_philo(int id, t_args *args)
 	return (philo);
 }
 
-t_args	*initialize_args(char **argv, int argc)
+t_args			*initialize_args(char **argv, int argc)
 {
-	t_args *args;
+	t_args	*args;
 
 	if (argc == 6 || argc == 5)
 	{
@@ -50,7 +62,7 @@ t_args	*initialize_args(char **argv, int argc)
 		args->forks_sem = init_sem("forks", (args->number / 2));
 		args->output_sem = init_sem("output", 1);
 		if (!(args->forks_sem) || !(args->output_sem))
-				ft_error(SYSCALL_ERR);
+			ft_error(SYSCALL_ERR);
 		return (args);
 	}
 	else

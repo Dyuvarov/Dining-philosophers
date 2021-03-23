@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:09 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 14:30:52 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:05:38 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,70 +27,6 @@ static void			*philo_start(void *args)
 		eat(&philo);
 	}
 	return (NULL);
-}
-
-static t_controller	*create_meal_control(t_philo **head_philo)
-{
-	int				i;
-	t_controller	*ctrl;
-	t_philo			*ph_tmp;
-
-	ctrl = malloc(sizeof(t_controller) * ((*head_philo)->args->number + 1));
-	if (!ctrl)
-		ft_error(SYSCALL_ERR, *head_philo);
-	ph_tmp = *head_philo;
-	i = 0;
-	while (i < ph_tmp->args->number)
-	{
-		ctrl[i].philo = ph_tmp;
-		ctrl[i].meals = 0;
-		ph_tmp->cntrl = &ctrl[i];
-		ph_tmp = ph_tmp->left_philo;
-		++i;
-	}
-	ctrl[i].philo = NULL;
-	return (ctrl);
-}
-
-static void			*meals_controll(void *args)
-{
-	t_controller	*ctrl;
-	int				flag;
-	int				i;
-	t_args			*arg;
-	t_philo			*philo;
-
-	ctrl = (t_controller *)args;
-	arg = ctrl[0].philo->args;
-	while (1)
-	{
-		i = 0;
-		flag = 1;
-		while (ctrl[i].philo)
-		{
-			philo = ctrl[i].philo;
-			if (!(ctrl[i].philo->activated))
-				continue ;
-			pthread_mutex_lock(ctrl[i].philo->meal_mtx);
-			if ((get_time(arg->start_t) - philo->last_meal) >=
-										(arg->die_time + 9))
-			{
-				philo_death(philo);
-			}
-			if (arg->eat_num >= 0 && (ctrl[i].meals < arg->eat_num))
-				flag = 0;
-			pthread_mutex_unlock(philo->meal_mtx);
-			++i;
-		}
-		if (flag && arg->eat_num >= 0)
-			break ;
-	}
-	pthread_mutex_lock(arg->output);
-	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n",
-		ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
-	pthread_mutex_unlock(arg->output);
-	cleaner(ctrl[0].philo, 0);
-	exit(EXIT_SUCCESS);
 }
 
 static void			wait_threads_finish(t_philo *head_philo)

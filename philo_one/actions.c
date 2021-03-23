@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 14:23:41 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 14:22:57 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:15:26 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+void	ate_enough_msh(t_philo *philo)
+{
+	pthread_mutex_lock(philo->args->output);
+	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n",
+		ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
+	pthread_mutex_unlock(philo->args->output);
+	cleaner(philo, 0);
+}
 
 void	show_msg(const char *str, long time, t_philo *philo)
 {

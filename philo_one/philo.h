@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 14:25:53 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:05:48 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ typedef struct	s_controller
 int				ft_atoi(const char *str);
 int				ft_strlen(const char *str);
 void			ft_error(int code, t_philo *philo);
+t_controller	*create_meal_control(t_philo **head_philo);
+void			*meals_controll(void *args);
 t_philo			*create_philos(char	**argv, int argc);
 long			get_time(long start);
 void			eat(t_philo **ph);
 void			*philo_sleep_n_think(void *args);
 void			philo_death(t_philo *philo);
 void			cleaner(t_philo *philo, int i);
+void			ate_enough_msh(t_philo *philo);
 #endif

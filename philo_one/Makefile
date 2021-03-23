@@ -1,7 +1,7 @@
 NAME		= philo_one
 
 HEADERS		= philo.h
-SRCS		= main.c utils.c error_handler.c init.c actions.c
+SRCS		= main.c utils.c error_handler.c init.c actions.c monitor.c
 OBJS		= $(SRCS:.c=.o)
 
 CC			= gcc

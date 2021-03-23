@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 14:23:41 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 13:38:04 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:13:03 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	philo_death(t_philo *philo)
 {
 	show_msg("%ld: philo #%d died\n", get_time(philo->args->start_t), philo);
 	sem_post(philo->args->finish_sem);
-	exit (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 void	*philo_sleep_n_think(void *args)
@@ -48,9 +48,9 @@ void	eat(t_philo **ph)
 	philo->last_meal = cur_time;
 	sem_post(philo->meal_sem);
 	show_msg("%ld: philo #%d has taken a fork\n",
-			 cur_time, philo);
+			cur_time, philo);
 	show_msg("%ld: philo #%d has taken a fork\n",
-			 cur_time, philo);
+			cur_time, philo);
 	show_msg("%ld: philo #%d is eating\n", cur_time, philo);
 	usleep(philo->args->eat_time * 1000);
 	sem_post(philo->args->forks_sem);

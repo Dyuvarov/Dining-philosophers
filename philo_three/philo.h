@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 13:37:15 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 13:32:52 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:06:41 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ typedef struct	s_args
 typedef struct	s_philo
 {
 	int					number;
-	int 				pid;
-	int 				meals;
+	int					pid;
+	int					meals;
 	long				last_meal;
 	struct s_args		*args;
 	struct s_philo		*left_philo;
 	struct s_philo		*right_philo;
-	char 				*sem_name;
+	char				*sem_name;
 	char				*meal_sem_name;
 	sem_t				*meal_count_sem;
 	sem_t				*meal_sem;
 }				t_philo;
-
 
 int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
@@ -63,5 +62,5 @@ sem_t			*init_sem(char *name, int value);
 void			unlink_sems(t_args *args);
 void			show_msg(const char *str, long time, t_philo *philo);
 void			*philo_controll(void *args);
-void 			*meal_count_controll(void *args);
+void			*meal_count_controll(void *args);
 #endif

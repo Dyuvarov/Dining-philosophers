@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sem_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 14:08:24 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 14:10:05 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void 	show_msg(const char *str, long time, t_philo *philo)
+void	show_msg(const char *str, long time, t_philo *philo)
 {
 	sem_wait(philo->args->output_sem);
 	printf(str, time, philo->number);
@@ -12,7 +24,7 @@ void 	show_msg(const char *str, long time, t_philo *philo)
 sem_t	*init_sem(char *name, int value)
 {
 	sem_t	*sem;
-	
+
 	if (!name)
 		return (NULL);
 	sem = sem_open(name, O_CREAT, 0666, value);
@@ -45,4 +57,3 @@ void	unlink_sems(t_args *args)
 		}
 	}
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 14:13:13 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 14:14:08 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdlib.h>
 
@@ -23,14 +35,14 @@ static t_philo	*new_philo(int id, t_args *args)
 	philo->last_meal = args->start_t;
 	philo->sem_name = ft_itoa(philo->number);
 	philo->meal_sem_name = ft_itoa(philo->number + args->number);
-	if (!philo->sem_name || ! philo->meal_sem_name)
+	if (!philo->sem_name || !philo->meal_sem_name)
 		ft_error(SYSCALL_ERR, args);
 	philo->meal_count_sem = init_sem(philo->sem_name, 0);
 	philo->meal_sem = init_sem(philo->meal_sem_name, 1);
 	return (philo);
 }
 
-t_args	*initialize_args(char **argv, int argc)
+t_args			*initialize_args(char **argv, int argc)
 {
 	t_args *args;
 

@@ -6,7 +6,7 @@
 /*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 14:23:41 by ugreyiro          #+#    #+#             */
-/*   Updated: 2021/03/21 10:56:54 by ugreyiro         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:28:32 by ugreyiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	philo_death(t_philo *philo)
 	show_msg("%ld: philo #%d died\n", get_time(philo->args->start_t), philo);
 	i = 0;
 	tmp = philo;
-	while(i < philo->args->number)
+	while (i < philo->args->number)
 	{
 		pthread_detach(*(philo->thread));
 		tmp = tmp->left_philo;
@@ -61,7 +61,7 @@ void	eat(t_philo **ph)
 	philo->last_meal = cur_time;
 	sem_post(philo->meal_sem);
 	show_msg("%ld: philo #%d has taken a fork\n",
-		    cur_time, philo);
+			cur_time, philo);
 	show_msg("%ld: philo #%d has taken a fork\n",
 			cur_time, philo);
 	show_msg("%ld: philo #%d is eating\n", cur_time, philo);

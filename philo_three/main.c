@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 14:10:23 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 14:15:01 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <pthread.h>
 
-static void			*philo_start(void *args)
+static void	*philo_start(void *args)
 {
 	t_philo			*philo;
 	pthread_t		meal_ctrl_thread;
@@ -19,12 +31,12 @@ static void			*philo_start(void *args)
 	pthread_detach(meal_ctrl_thread);
 }
 
-/*void	create_procceses(t_philo **arr)
+void		create_procceses(t_philo **arr)
 {
 	int i;
 
 	i = 0;
-	while(arr[i])
+	while (arr[i])
 	{
 		arr[i]->pid = fork();
 		if (arr[i]->pid < 0)
@@ -32,46 +44,24 @@ static void			*philo_start(void *args)
 		else if (arr[i]->pid == 0)
 		{
 			philo_start(arr[i]);
-			exit (EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		}
-		++i;
-	}
-}*/
-
-void	create_procceses(t_philo *philo)
-{
-	int i;
-	t_philo	*tmp;
-
-	i = 0;
-	tmp = philo;
-	while(i < philo->args->number)
-	{
-		tmp->pid = fork();
-		if (tmp->pid < 0)
-			ft_error(SYSCALL_ERR, tmp->args);
-		else if (tmp->pid == 0)
-		{
-			philo_start(tmp);
-			exit (EXIT_SUCCESS);
-		}
-		tmp = tmp->left_philo;
 		++i;
 	}
 }
 
-t_philo	**get_philo_arr(t_philo *head_philo)
+t_philo		**get_philo_arr(t_philo *head_philo)
 {
 	t_philo	**arr;
 	t_philo	*tmp;
-	int 	i;
+	int		i;
 
 	arr = malloc(sizeof(t_philo *) * (head_philo->args->number + 1));
 	if (!arr)
 		ft_error(SYSCALL_ERR, head_philo->args);
 	i = 0;
 	tmp = head_philo;
-	while(i < head_philo->args->number)
+	while (i < head_philo->args->number)
 	{
 		arr[i] = tmp;
 		tmp = tmp->left_philo;
@@ -81,7 +71,7 @@ t_philo	**get_philo_arr(t_philo *head_philo)
 	return (arr);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_philo			*head_philo;
 	t_philo			**philo_arr;
@@ -93,8 +83,9 @@ int		main(int argc, char **argv)
 	unlink_sems(args);
 	head_philo = create_philos(args);
 	philo_arr = get_philo_arr(head_philo);
-	pthread_create(&meal_count_controller, NULL, meal_count_controll, head_philo);
-	create_procceses(head_philo);
+	pthread_create(&meal_count_controller, NULL,
+		meal_count_controll, head_philo);
+	create_procceses(philo_arr);
 	sem_wait(args->finish_sem);
 	sem_wait(args->output_sem);
 	i = 0;

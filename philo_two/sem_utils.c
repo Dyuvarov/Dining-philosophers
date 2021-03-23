@@ -1,9 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sem_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 13:28:44 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 13:56:50 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
+#include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
 
-void 	show_msg(const char *str, long time, t_philo *philo)
+void	ate_enough_msg(t_philo *philo)
+{
+	sem_wait(philo->args->output_sem);
+	write(1, "ALL PHILOSOPHERS ATE ENOUGH\n",
+			ft_strlen("ALL PHILOSOPHERS ATE ENOUGH\n"));
+	unlink_sems(philo->args);
+}
+
+void	show_msg(const char *str, long time, t_philo *philo)
 {
 	t_args	*arg;
 
@@ -16,7 +37,7 @@ void 	show_msg(const char *str, long time, t_philo *philo)
 sem_t	*init_sem(char *name, int value)
 {
 	sem_t	*sem;
-	
+
 	if (!name)
 		return (NULL);
 	sem = sem_open(name, O_CREAT, 0666, value);
@@ -28,7 +49,7 @@ sem_t	*init_sem(char *name, int value)
 
 void	unlink_sems(t_args *args)
 {
-	int	i;
+	int		i;
 	char	*sem_name;
 
 	i = 1;

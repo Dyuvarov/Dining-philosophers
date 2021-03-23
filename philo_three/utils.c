@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugreyiro <ugreyiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/23 14:08:34 by ugreyiro          #+#    #+#             */
+/*   Updated: 2021/03/23 14:09:46 by ugreyiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <sys/time.h>
 
@@ -18,8 +30,8 @@ long		get_time(long start)
 
 	gettimeofday(&tv, NULL);
 	cur_time = (long)tv.tv_sec * 1000 + (long)tv.tv_usec / 1000;
-	if(start == 0)
-		return cur_time;
+	if (start == 0)
+		return (cur_time);
 	else
 		return (cur_time - start);
 }
