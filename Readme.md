@@ -52,4 +52,4 @@ To start simulation run the launch file (./philo_one/ or ./philo_two or ./philo_
 5) (OPTIONAL) number of times each philosopher must eat - if all philosophers eat at least the "number of times each philosopher must eat" simulation will stop. 
 If not specified, the simulation will stop only at the death of a philosopher. 
 
-![] (philo.gif)
+![](philo.gif)
