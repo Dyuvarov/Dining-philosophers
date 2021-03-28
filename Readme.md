@@ -11,9 +11,13 @@ Here the detailed article on [Wikipedia](https://en.wikipedia.org/wiki/Dining_ph
 inst: [@dyuvarov](www.instagram.com/dyuvarov/)
 
 # Main Part
-Philosophers can eat, sleep and think. Each philosopher can do only one action in the same time (cant eat and think or sleep and thinh etc.). Each philosopher needs 2 forks to eat.
-If philosopher able to take 2 forks, he start eating. After eating he will sleep. After sleeping he will think until he can take 2 forks and start eating.
-if a philosopher starves too long he will die.
+Philosophers can eat, sleep and think. Each philosopher can do only one action in the same time (cant eat and think at the same time or sleep and think etc.).
+
+Each philosopher needs 2 forks to eat.
+If philosopher able to take 2 forks, he starts eating. 
+After eating he will sleep.
+After sleeping he will think until he can take 2 forks and start eating.
+If a philosopher starves too long he will die.
 
 ##### :fork_and_knife: philo_one: 
 * There are one fork between 2 philosophers (number of philosophers == number of forks)
