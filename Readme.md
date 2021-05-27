@@ -7,9 +7,6 @@ Here the detailed article on [Wikipedia](https://en.wikipedia.org/wiki/Dining_ph
 * Mutex
 * Semaphore
 
-# Follow me:stuck_out_tongue_winking_eye:
-inst: [@dyuvarov](www.instagram.com/dyuvarov/)
-
 # Main Part
 Philosophers can eat, sleep and think. Each philosopher can do only one action in the same time (cant eat and think at the same time or sleep and think etc.).
 
